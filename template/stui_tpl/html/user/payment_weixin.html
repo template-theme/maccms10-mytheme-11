@@ -1,0 +1,38 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width = device-width ,initial-scale = 1,minimum-scale = 1,maximum-scale = 1,user-scalable =no"/>
+	<title>微信在线支付 - {$maccms.site_name}</title>
+	{include file="user/include" /}
+</head>
+<body>
+<header class="stui-header">
+    <span class="stui-header__left"><a class="go-back" href="javascript:history.go(-1)"><i class="iconfont icon-left"></i>返回</a></span>
+    <span class="stui-header__center">确认付款</span>
+</header>
+<div class="weui-msg">
+  	<div class="weui-msg__icon-area"><img src="http://paysdk.weixin.qq.com/example/qrcode.php?data={$payment.code_url|urlencode}" width="150" height="150"/></div>
+  	<div class="weui-msg__text-area">
+    	<h2 class="weui-msg__title"><span class="price"><span id="cart_price_total">订单金额{$order.order_price}元</span></span></h2>
+    	<p class="weui-msg__desc">订单编号:{$order.order_code}</p>
+    	<p class="weui-msg__desc">打开微信，扫码支付</p>
+ 	</div>	  	
+</div>
+{include file="user/foot" /}
+<script>
+	function check(){
+		$.get("{:url('user/order_info')}" + '?order_id={$order.order_id}', function(data){
+			if(data.info.order_status == 1){
+				alert('支付完成，即将跳转到会员中心');
+				window.location.href = "{:url('user/index')}";
+			}
+		});
+	}
+	$(function(){
+		setInterval(function(){check()}, 5000);  //5秒查询一次支付是否成功
+	})
+</script>
+</body>
+</html>

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width = device-width ,initial-scale = 1,minimum-scale = 1,maximum-scale = 1,user-scalable =no"/>
+	<title>个人中心 - {$maccms.site_name}</title>
+	{include file="user/include" /}
+</head>
+
+<body>
+<header class="stui-header">
+    <span class="stui-header__left"><a href="{$maccms.path}"><i class="iconfont icon-left"></i>首页</a></span>
+    <span class="stui-header__center">个人中心</span>
+    <span class="stui-header__right"><a href="{:url('user/logout')}">注销</a></span>
+</header>
+
+<div class="weui-cells">
+  	<div class="weui-cell" style="padding: 20px 15px;">
+		<div class="weui-cell__hd" style="position: relative; margin-right: 10px;">			
+		  	<img class="face" src="{$obj.user_portrait|mac_default='static/images/touxiang.png'|mac_url_img}" style="width: 60px; display: block; border-radius: 50%;">
+		</div>
+		<a class="weui-cell__bd" href="{:url('user/info')}">
+		 	{$obj.user_name}
+		  	<p class="weui-media-box__desc">您账户剩余<span class="text-red">[{$obj.user_points}]</span>积分</p>
+		</a>
+		<a class="weui-cell__ft" href="{:url('user/info')}"><i class="iconfont icon-right"></i></a>
+    </div>
+</div>
+<div class="weui-cells">
+	<a class="weui-cell weui-cell_access" href="{:url('user/upgrade')}">
+		<div class="weui-cell__bd"><i class="iconfont icon-vip"></i> 您是<span class="text-red">【{$obj.group.group_name}】</span></div>
+		<div class="weui-cell__ft font-12">{if condition="$obj.group_id lt 3"}永久有效{else}{$obj.user_end_time|date='Y-m-d',###}到期{/if}</div>
+	</a>
+</div>
+<div class="weui-cells">
+  	<a class="weui-cell weui-cell_access" href="{:url('user/info')}">
+  		<div class="weui-cell__bd"><i class="iconfont icon-user"></i> <span>我的资料</span></div>
+  		<div class="weui-cell__ft"></div>
+  	</a>
+	<a class="weui-cell weui-cell_access" href="{:url('user/favs')}">
+		<div class="weui-cell__bd"><i class="iconfont icon-favorite"></i> <span>我的收藏</span></div>
+		<div class="weui-cell__ft"></div>
+	</a>
+	<a class="weui-cell weui-cell_access" href="{:url('user/plays')}">
+		<div class="weui-cell__bd"><i class="iconfont icon-play"></i> <span>我的播放</span></div>
+		<div class="weui-cell__ft"></div>
+	</a>
+	<a class="weui-cell weui-cell_access" href="{:url('user/downs')}">
+		<div class="weui-cell__bd"><i class="iconfont icon-download"></i> <span>我的下载</span></div>
+		<div class="weui-cell__ft"></div>
+	</a>
+</div>
+<div class="weui-cells">
+	<a class="weui-cell weui-cell_access" href="{:url('user/buy')}">
+		<div class="weui-cell__bd"><i class="iconfont icon-coupon"></i> <span>充值中心</span></div>
+		<div class="weui-cell__ft"></div>
+	</a>
+	<a class="weui-cell weui-cell_access" href="{:url('user/upgrade')}">
+		<div class="weui-cell__bd"><i class="iconfont icon-vip"></i> <span>升级会员组</span></div>
+		<div class="weui-cell__ft"></div>
+	</a>
+	<a class="weui-cell weui-cell_access" href="{:url('user/orders')}">
+		<div class="weui-cell__bd"><i class="iconfont icon-book"></i> <span>充值记录</div>
+		<div class="weui-cell__ft"></div>
+	</a>	
+</div>
+<div class="weui-cells">	
+	<a class="weui-cell weui-cell_access" href="{:url('user/popedom')}">
+		<div class="weui-cell__bd"><i class="iconfont icon-link"></i> <span>访问权限</span></div>
+		<div class="weui-cell__ft"></div>
+	</a>
+	<!--
+	<a class="weui-cell weui-cell_access" href="{:url('user/reg')}?uid={$obj.user_id}">
+		<div class="weui-cell__bd"><i class="iconfont icon-share"></i> <span>推广链接</span></div>
+		<div class="weui-cell__ft font-12">分享给好友得积分</div>
+	</a>
+	-->
+</div>
+<div class="weui-cells">
+	<a class="weui-cell weui-cell_access" href="{:url('user/logout')}">
+		
+		<div class="weui-cell__bd text-center" ><span>退出登录</span></div>
+	</a>
+</div>
+{include file="user/foot" /}
+<style type="text/css">
+	.btnimg{ background: none; border: none; margin: 15px 0 0 15px; width: 30px; height: 30px; background-color: #ccc000; text-align: center; line-height: 30px; border-radius: 5px; color: #fff;}
+</style>
+<script>
+	$(".face").imageUpload({
+		formAction: "{:url('user/portrait')}",
+		inputFileName:'file',
+		browseButtonValue: '<i class="iconfont icon-edit"></i>',
+		browseButtonClass:'btnimg',
+		automaticUpload: true,
+		hideDeleteButton: true,
+		hover:true
+	})
+	$(".face").on("imageUpload.uploadFailed", function (ev, err) {
+		alert(err);
+	});
+</script>
+</body>
+</html>

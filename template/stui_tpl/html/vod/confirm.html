@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+	<title>使用积分购买权限</title>
+	{include file="user/include"}
+</head>
+<body>
+	<div class="weui-msg">
+    <div class="weui-msg__icon-area"><i class="weui-icon-warn weui-icon_msg-primary"></i></div>
+    <div class="weui-msg__text-area">
+    	<h2 class="weui-msg__title">系统提示...</h2>
+    	<p class="weui-msg__desc text-red">{$popedom.msg}</p>
+    	<p class="weui-msg__desc">一次支付，永久观看，不重复扣费，谢谢支持。</p>
+    </div>
+    {if condition="$user.group_id eq 1"}
+    <div class="weui-btn-area">
+	  	<a class="weui-btn weui-btn_primary" href="{:mac_url('user/login')}">马上登录</a>		  	
+	</div>	
+	{else/}
+	<div class="weui-btn-area">
+	  	<a class="weui-btn weui-btn_primary" href="javascript:" onclick="MAC.User.BuyPopedom(this)" data-id="{$obj.vod_id}" data-sid="{$param.sid}" data-nid="{$param.nid}" data-mid="1" data-type="{if condition="$obj.player_info.flag eq 'play'"}4{else/}5{/if}">确认支付</a>		  	
+	</div>	
+	<div class="weui-btn-area">
+	  	<a class="weui-btn weui-btn_default" href="{:url('user/buy')}">马上充值</a>		  	
+	</div>	
+	{/if}   
+</body>
+</html>
+
+
+
+
+
+
+

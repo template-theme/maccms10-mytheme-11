@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width = device-width ,initial-scale = 1,minimum-scale = 1,maximum-scale = 1,user-scalable =no"/>
+	<title>我的权限 - {$maccms.site_name}</title>
+	{include file="user/include" /}
+</head>
+<body>
+<header class="stui-header">
+    <span class="stui-header__left"><a class="go-back" href="javascript:history.go(-1)"><i class="iconfont icon-left"></i>返回</a></span>
+    <span class="stui-header__center">我的权限</span>
+</header>
+{volist name="type_tree" id="vo"}
+<div class="weui-cells">
+    <a class="weui-cell weui-cell_access open-list" href="javascript:;">
+        <div class="weui-cell__bd">
+          <p>{$vo.type_name}</p>
+        </div>
+        <div class="weui-cell__ft"></div>
+    </a>
+    {foreach name="$vo.popedom" id="v2"}
+  	<div class="weui-cell" style="display: none;">
+    	<div class="weui-cell__bd">
+      		<p>{$key}</p>
+    	</div>
+    	<div class="weui-cell__ft">{if condition="$v2 eq 1"}<i class="weui-icon-success"></i>{else}<i class="weui-icon-cancel"></i>{/if}</div>
+  	</div>
+  	{/foreach}
+</div>
+{volist name="vo.child" id="child"}
+<div class="weui-cells" style="margin-top: -1px;">
+    <a class="weui-cell weui-cell_access open-list" href="javascript:;">
+        <div class="weui-cell__bd">
+          <p class="text-999">-{$child.type_name}</p>
+        </div>
+        <div class="weui-cell__ft"></div>
+    </a>
+    {foreach name="$child.popedom" id="v2"}
+  	<div class="weui-cell" style="display: none;">
+    	<div class="weui-cell__bd">
+      		<p>{$key}</p>
+    	</div>
+    	<div class="weui-cell__ft">{if condition="$v2 eq 1"}<i class="weui-icon-success"></i>{else}<i class="weui-icon-cancel"></i>{/if}</div>
+  	</div>
+  	{/foreach}
+</div>
+{/volist}
+{/volist}
+{include file="user/foot" /}
+<script>	
+	$(".open-list").click(function () {
+		 $(this).siblings().toggle();
+	});
+</script>
+</body>
+</html>
